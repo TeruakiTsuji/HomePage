@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" class="h-100">
+    <head>
+        <meta charset="utf-8">
+        <title>CentOS8</title>
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+    
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        </style>
+        <!-- Custom styles for this template -->
+        <link href="navbar.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="sticky-footer.css" rel="stylesheet">
+    </head>
+    <body class="d-flex flex-column h-100">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fifth navbar example">
+            <div class="container-fluid">
+                <img src="/images/centos-logo-white.png" width="160" height="40"/>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+        
+                <div class="collapse navbar-collapse" id="navbarsExample05">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signin.html">sign-in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/index.html" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown05">
+                            <li><a class="dropdown-item" href="http://localhost:8080/login" target="_blank">iTool (Standalone)</a></li>
+                            <li><a class="dropdown-item" href="http://192.168.0.19:8080/login" target="_blank">iTool (自宅)</a></li>
+                        </ul>
+                    </ul>
+                    <form>
+                        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- Begin page content -->
+        <main class="flex-shrink-0">
+            <div class="container">
+                <h1 class="mt-5">Wine 6.0 Source Download and Compile</h1>
+                <p class="lead">1. yumリポジトリにEPELを追加</p>
+                <p class="lead"># yum install epel-release</p>
+                <p class="lead"># yum install wine --enablerepo=epel</p>
+                <p class="lead">2. 64bit版wineのuninstall</p>
+                <p class="lead"># yum remove wine</p>
+                <p class="lead"># yum erase wine wine-*</p>
+                <p class="lead">3. wineのビルド</p>
+                <p class="lead"># yum install samba-winbind-clients -y</p>
+                <p class="lead"># yum -y groupinstall base "Development tools" --setopt=group_package_types=mandatory,default,optional</p>
+                <p class="lead"># yum -y install libjpeg-turbo-devel libtiff-devel freetype-devel</p>
+                <p class="lead"># yum -y install glibc-devel.{i686,x86_64} libgcc.{i686,x86_64} libX11-devel.{i686,x86_64} freetype-devel.{i686,x86_64} gnutls-devel.{i686,x86_64} libxml2-devel.{i686,x86_64} libjpeg-turbo-devel.{i686,x86_64} libpng-devel.{i686,x86_64} libXrender-devel.{i686,x86_64} alsa-lib-devel.{i686,x86_64} </p>
+                <p class="lead">○wineのソースをダウンロード</p>
+                <p class="lead"># cd /usr/src</p>
+                <p class="lead"># wget http://dl.winehq.org/wine/source/6.0/wine-6.0.tar.xz</p>
+                <p class="lead"># tar Jxfv wine-6.0.tar.xz</p>
+                <p class="lead">○ビルド(64bit版と32bit版)</p>
+                <p class="lead"># cd wine-6.0/</p>
+                <p class="lead"># mkdir -p wine32 wine64</p>
+                <p class="lead"># cd wine64</p>
+                <p class="lead"># ../configure --enable-win64</p>
+                <p class="lead"># make -j 2</p>
+                <p class="lead"># cd ../wine32</p>
+                <p class="lead"># ../configure --with-wine64=../wine64</p>
+                <p class="lead"># make -j 2</p>
+                <p class="lead"># make install</p>
+                <p class="lead"># cd ../wine64</p>
+                <p class="lead"># make install</p>
+                <p class="lead">4. cabextractのinstall</p>
+                <p class="lead"># yum --enablerepo=epel install cabextract</p>
+                <p class="lead">(実際にはcabextractのソースのダウンロードとビルドを行う)</p>
+                <p class="lead">5. winetricksのinstall</p>
+                <p class="lead"># mkdir bin</p>
+                <p class="lead"># cd bin</p>
+                <p class="lead"># wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks</p>
+                <p class="lead"># chmod +x winetricks</p>
+                <p class="lead">6. winetricksでallfontsのinstall</p>
+                <p class="lead"># winetricks allfonts</p>
+                <p>参考 <a href="https://ameblo.jp/kousakusya/entry-12333298836.html" target="_blank">工作者(kousakusya)のブログ</a></p>
+            </div>
+        </main>
+        <main class="flex-shrink-0">
+            <div class="container">
+                <h1 class="mt-5">その他のツール</h1>
+                <p class="lead">1. <a href="https://www.gnu.org/software/global/" target="_blank">Gnu Global</a> (Ver.6.6.5)</p>
+                <p class="lead">2. <a href="http://www.doxygen.jp/" target="_blank">Gnu Doxygen</a> (Ver.1.5.9)</p>
+                <p class="lead">3. <a href="https://gnucobol.sourceforge.io/" target="_blank">Gnu Cobol</a> (Ver.3.1.2)</p>
+                <p class="lead">4. <a href="https://pkgs.dyn.su/el8/base/SRPMS/" target="_blank">cabextract</a> (Ver.1.9-2)</p>
+                <p class="lead">5. <a href="https://cmake.org/download/" target="_blank">cmake</a> (Ver.3.19.3)</p>
+            </div>
+        </main>
+        <footer class="footer mt-auto py-3 bg-light">
+            <div class="container">
+                <span class="text-muted">CentOS8</span>
+            </div>
+        </footer>
+        <script src="/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
